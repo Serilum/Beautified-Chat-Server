@@ -1,7 +1,7 @@
 package com.natamus.beautifiedchatserver.forge.events;
 
 import com.mojang.datafixers.util.Pair;
-import com.natamus.beautifiedchatserver.data.Constants;
+import com.natamus.beautifiedchatserver.data.Chat;
 import com.natamus.beautifiedchatserver.events.BeautifulChatEvent;
 import com.natamus.collective.functions.MessageFunctions;
 import net.minecraft.network.chat.Component;
@@ -27,7 +27,7 @@ public class ForgeBeautifulChatEvent {
 					e.setCanceled(true);
 
 					serverPlayer.server.execute(() -> {
-						Constants.logger.info(newMessage.getString());
+						Chat.logger.info(newMessage.getString());
 						MessageFunctions.broadcastMessage(serverPlayer.level, newMessage);
 					});
 				}
