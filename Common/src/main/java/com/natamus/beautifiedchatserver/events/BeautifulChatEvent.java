@@ -2,6 +2,7 @@ package com.natamus.beautifiedchatserver.events;
 
 import com.mojang.datafixers.util.Pair;
 import com.natamus.beautifiedchatserver.config.ConfigHandler;
+import com.natamus.beautifiedchatserver.data.Chat;
 import com.natamus.beautifiedchatserver.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -47,6 +48,7 @@ public class BeautifulChatEvent {
 			output.append(wordcomponent);
 		}
 
+		Chat.logger.info(output.getString());
 		return new Pair<Boolean, Component>(true, output);
 	}
 }
