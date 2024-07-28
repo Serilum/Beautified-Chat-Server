@@ -3,6 +3,7 @@ package com.natamus.beautifiedchatserver;
 import com.natamus.beautifiedchatserver.events.BeautifulChatEvent;
 import com.natamus.beautifiedchatserver.util.Reference;
 import com.natamus.collective.check.RegisterMod;
+import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.collective.fabric.callbacks.CollectiveChatEvents;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.network.chat.Component;
@@ -14,6 +15,10 @@ public class ModFabric implements ModInitializer {
 	
 	@Override
 	public void onInitialize() {
+		if (!ShouldLoadCheck.shouldLoad(Reference.MOD_ID)) {
+			return;
+		}
+
 		setGlobalConstants();
 		ModCommon.init();
 
