@@ -32,7 +32,7 @@ public class ModForge {
 	}
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
-    	MinecraftForge.EVENT_BUS.register(new ForgeBeautifulChatEvent());
+    	MinecraftForge.EVENT_BUS.register(ForgeBeautifulChatEvent.class);
 	}
 
 	private static void setGlobalConstants() {
