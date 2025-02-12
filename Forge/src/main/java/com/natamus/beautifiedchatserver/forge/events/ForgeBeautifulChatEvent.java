@@ -9,12 +9,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber
 public class ForgeBeautifulChatEvent {
 	@SubscribeEvent
-	public void onServerChat(ServerChatEvent e) {
+	public static void onServerChat(ServerChatEvent e) {
 		ServerPlayer serverPlayer = e.getPlayer();
 		Component originalMessage = e.getMessage();
 		MutableComponent fullMessage = Component.literal("<" + serverPlayer.getName().getString() + "> ").append(originalMessage);
