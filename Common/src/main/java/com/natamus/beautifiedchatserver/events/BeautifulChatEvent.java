@@ -48,7 +48,13 @@ public class BeautifulChatEvent {
 			output.append(wordcomponent);
 		}
 
-		Chat.logger.info(output.getString());
+
+       	Chat.logger.info(output.getString());
+
+        if (ConfigHandler.logVanillaFormat) {
+            Chat.logger.info("<" + user + "> " + message);
+        }
+
 		return new Pair<Boolean, Component>(true, output);
 	}
 }

@@ -12,6 +12,7 @@ public class ConfigHandler extends DuskConfig {
 
 	@Entry public static String chatMessageFormat = "%timestamp% | %username%: %chatmessage%";
 	@Entry public static String timestampFormat = "HH:mm";
+    @Entry public static boolean logVanillaFormat = false;
 	@Entry(min = 0, max = 15) public static int chatTimestampColour = 8;
 	@Entry(min = 0, max = 15) public static int chatUsernameColour = 2;
 	@Entry(min = 0, max = 15) public static int chatMessageColour = 15;
