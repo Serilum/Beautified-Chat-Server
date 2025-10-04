@@ -6,7 +6,7 @@ logoFile="icon.png"
 
 [[mods]]
 modId="beautifiedchatserver"
-version="2.7"
+version="2.8"
 displayName="Beautified Chat Server"
 displayURL="https://serilum.com/mod/beautified-chat-server"
 authors="Rick South"
