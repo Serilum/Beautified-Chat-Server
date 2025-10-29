@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "beautifiedchatserver",
-  "version": "2.7",
+  "version": "3.0",
 
   "name": "Beautified Chat Server",
   "description": "A highly configurable mod to change the style and colour of incoming chat messages server-wide.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.21",
     "java": ">=21",
-    "collective": ">=7.91"
+    "collective": ">=8.13"
   },
 
   "custom": {
@@ -45,11 +45,11 @@
 	  " Andrean Olgo",
 	  " aternosorg",
 	  " Cherriesaurus",
-	  " David Sanchez",
-	  " drdog111",
 	  " Michael W. S.",
 	  " t128",
 	  " Tyler Behl",
-	  " XAgent"
+	  " William Innes",
+	  " XAgent",
+	  " ตัวตรึง พระนคร"
   ]
 }

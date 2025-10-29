@@ -2,14 +2,15 @@ package com.natamus.beautifiedchatserver;
 
 import com.natamus.beautifiedchatserver.neoforge.config.IntegrateNeoForgeConfig;
 import com.natamus.beautifiedchatserver.neoforge.events.NeoForgeBeautifulChatEvent;
+import com.natamus.beautifiedchatserver.neoforge.events.NeoForgeRegisterCommandsEvent;
 import com.natamus.beautifiedchatserver.util.Reference;
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(Reference.MOD_ID)
 public class ModNeoForge {
@@ -30,6 +31,8 @@ public class ModNeoForge {
 	}
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
+		NeoForge.EVENT_BUS.register(NeoForgeRegisterCommandsEvent.class);
+
 		NeoForge.EVENT_BUS.register(NeoForgeBeautifulChatEvent.class);
 	}
 
