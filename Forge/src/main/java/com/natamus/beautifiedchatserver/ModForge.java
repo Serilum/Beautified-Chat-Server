@@ -2,12 +2,11 @@ package com.natamus.beautifiedchatserver;
 
 import com.natamus.beautifiedchatserver.forge.config.IntegrateForgeConfig;
 import com.natamus.beautifiedchatserver.forge.events.ForgeBeautifulChatEvent;
+import com.natamus.beautifiedchatserver.forge.events.ForgeRegisterCommandsEvent;
 import com.natamus.beautifiedchatserver.util.Reference;
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.bus.BusGroup;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -32,6 +31,8 @@ public class ModForge {
 	}
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
+		ForgeRegisterCommandsEvent.registerEventsInBus();
+
     	ForgeBeautifulChatEvent.registerEventsInBus();
 	}
 
