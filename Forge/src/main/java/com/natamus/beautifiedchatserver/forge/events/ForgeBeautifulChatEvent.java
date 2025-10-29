@@ -1,7 +1,6 @@
 package com.natamus.beautifiedchatserver.forge.events;
 
 import com.mojang.datafixers.util.Pair;
-import com.natamus.beautifiedchatserver.data.Chat;
 import com.natamus.beautifiedchatserver.events.BeautifulChatEvent;
 import com.natamus.collective.functions.MessageFunctions;
 import net.minecraft.network.chat.Component;
@@ -29,7 +28,6 @@ public class ForgeBeautifulChatEvent {
 				MutableComponent newMessage = pair.getSecond().copy();
 				if (fullMessage != newMessage) {
 					serverPlayer.level().getServer().execute(() -> {
-						Chat.logger.info(newMessage.getString());
 						MessageFunctions.broadcastMessage(serverPlayer.level(), newMessage);
 					});
 
