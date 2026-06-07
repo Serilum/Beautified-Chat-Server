@@ -1,5 +1,5 @@
 <h2>Beautified Chat Server</h2>
-<p><a href="https://github.com/Serilum/Beautified-Chat-Server"><img src="https://serilum.com/assets/data/logo/beautified-chat-server.png"></a></p><h2>Download</h2>
+<p><a href="https://github.com/Serilum/Beautified-Chat-Server"><img src="https://serilum.com/assets/images/logo/beautified-chat-server.png"></a></p><h2>Download</h2>
 <p>You can download Beautified Chat Server on CurseForge and Modrinth:</p><p>&nbsp;&nbsp;CurseForge: &nbsp;&nbsp;<a href="https://curseforge.com/minecraft/mc-mods/beautified-chat-server">https://curseforge.com/minecraft/mc-mods/beautified-chat-server</a><br>&nbsp;&nbsp;Modrinth: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://modrinth.com/mod/beautified-chat-server">https://modrinth.com/mod/beautified-chat-server</a></p>
 <h2>Issue Tracker</h2>
 <p>To keep a better overview of all mods, the issue tracker is located in a separate repository.<br>&nbsp;&nbsp;For issues, ideas, suggestions or anything else, please follow this link:</p>

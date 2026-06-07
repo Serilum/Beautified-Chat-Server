@@ -30,28 +30,16 @@ public class CommandBCS {
 
 					ChatFormatting color = Util.parseColor(colorStr);
 					if (color == null) {
-						command.getSource().sendFailure(Util.prefix()
-							.append(Util.text("Unknown color: ", ChatFormatting.RED))
-							.append(Util.text(colorStr, ChatFormatting.WHITE)));
+						command.getSource().sendFailure(Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.unknowncolor", Util.text(colorStr, ChatFormatting.WHITE)).withStyle(ChatFormatting.RED)));
 						return 0;
 					}
 
 					boolean changed = Util.addOrUpdateRank(rankName, color);
 					if (changed) {
-						MessageFunctions.sendMessage(command.getSource(),
-							Util.prefix()
-								.append(Util.text("Rank ", ChatFormatting.GRAY))
-								.append(Util.text(Util.norm(rankName), ChatFormatting.AQUA))
-								.append(Util.text(" set to color ", ChatFormatting.GRAY))
-								.append(Util.text(color.getName(), color)), true);
+						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.ranksetcolor", Util.text(Util.norm(rankName), ChatFormatting.AQUA), Util.text(color.getName(), color)).withStyle(ChatFormatting.GRAY)), true);
 					}
 					else {
-						MessageFunctions.sendMessage(command.getSource(),
-							Util.prefix()
-								.append(Util.text("Rank ", ChatFormatting.GRAY))
-								.append(Util.text(Util.norm(rankName), ChatFormatting.AQUA))
-								.append(Util.text(" already had color ", ChatFormatting.GRAY))
-								.append(Util.text(color.getName(), color)), true);
+						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.rankalreadycolor", Util.text(Util.norm(rankName), ChatFormatting.AQUA), Util.text(color.getName(), color)).withStyle(ChatFormatting.GRAY)), true);
 					}
 					return 1;
 				}))))
@@ -64,17 +52,11 @@ public class CommandBCS {
 
 					boolean removed = Util.removeRank(rankName);
 					if (removed) {
-						MessageFunctions.sendMessage(command.getSource(),
-							Util.prefix()
-								.append(Util.text("Removed rank ", ChatFormatting.GRAY))
-								.append(Util.text(Util.norm(rankName), ChatFormatting.AQUA)), true);
+						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.removedrank", Util.text(Util.norm(rankName), ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY)), true);
 						return 1;
 					}
 					else {
-						command.getSource().sendFailure(Util.prefix()
-							.append(Util.text("Rank ", ChatFormatting.RED))
-							.append(Util.text(Util.norm(rankName), ChatFormatting.AQUA))
-							.append(Util.text(" does not exist.", ChatFormatting.RED)));
+						command.getSource().sendFailure(Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.rankdoesnotexist", Util.text(Util.norm(rankName), ChatFormatting.AQUA)).withStyle(ChatFormatting.RED)));
 						return 0;
 					}
 				})))
@@ -83,21 +65,16 @@ public class CommandBCS {
 				.executes((command) -> {
 					JsonObject ranks = Util.readJsonObjectSafe(Util.ranksPathString());
 					if (ranks.isEmpty()) {
-						MessageFunctions.sendMessage(command.getSource(),
-							Util.prefix().append(Util.text("No ranks defined.", ChatFormatting.GRAY)), true);
+						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.noranksdefined").withStyle(ChatFormatting.GRAY)), true);
 						return 1;
 					}
 
-					MutableComponent out = Util.prefix().append(Util.text("Ranks:", ChatFormatting.GOLD));
+					MutableComponent out = Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.ranksheader").withStyle(ChatFormatting.GOLD));
 					for (String key : Util.sortedKeys(ranks)) {
 						String colorName = Util.asString(ranks.get(key));
 						ChatFormatting cf = colorName != null ? Util.parseColor(colorName) : null;
 
-						out.append(Component.literal("\n"))
-							.append(Util.text("- ", ChatFormatting.DARK_GRAY))
-							.append(Util.text(key, ChatFormatting.AQUA))
-							.append(Util.text(" = ", ChatFormatting.GRAY))
-							.append(Util.text(colorName == null ? "UNKNOWN" : colorName, cf != null ? cf : ChatFormatting.WHITE));
+						out.append(Component.literal("\n")).append(Component.translatable("collective.beautifiedchatserver.message.listitem", Util.text(key, ChatFormatting.AQUA), Util.text(colorName == null ? "UNKNOWN" : colorName, cf != null ? cf : ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
 					}
 					MessageFunctions.sendMessage(command.getSource(), out, true);
 					return 1;
@@ -115,12 +92,7 @@ public class CommandBCS {
 
 					String current = Util.getRankOfPlayer(playerName).orElse(null);
 					if (Util.rankEquals(current, rankName)) {
-						MessageFunctions.sendMessage(command.getSource(),
-							Util.prefix()
-								.append(Util.text("Player ", ChatFormatting.GRAY))
-								.append(Util.text(playerName, ChatFormatting.GREEN))
-								.append(Util.text(" is already in rank ", ChatFormatting.GRAY))
-								.append(Util.text(Util.norm(current), ChatFormatting.AQUA)), true);
+						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.playeralreadyinrank", Util.text(playerName, ChatFormatting.GREEN), Util.text(Util.norm(current), ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY)), true);
 						return 1;
 					}
 
@@ -129,12 +101,7 @@ public class CommandBCS {
 						Util.togglePlayerRank(playerName, rankName);
 					}
 
-					MessageFunctions.sendMessage(command.getSource(),
-						Util.prefix()
-							.append(Util.text("Player ", ChatFormatting.GRAY))
-							.append(Util.text(playerName, ChatFormatting.GREEN))
-							.append(Util.text(" added to rank ", ChatFormatting.GRAY))
-							.append(Util.text(Util.norm(rankName), ChatFormatting.AQUA)), true);
+					MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.playeraddedtorank", Util.text(playerName, ChatFormatting.GREEN), Util.text(Util.norm(rankName), ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY)), true);
 					return 1;
 				}))))
 
@@ -148,22 +115,12 @@ public class CommandBCS {
 
 					String current = Util.getRankOfPlayer(playerName).orElse(null);
 					if (!Util.rankEquals(current, rankName)) {
-						command.getSource().sendFailure(Util.prefix()
-							.append(Util.text("Player ", ChatFormatting.RED))
-							.append(Util.text(playerName, ChatFormatting.GREEN))
-							.append(Util.text(" is not in rank ", ChatFormatting.RED))
-							.append(Util.text(Util.norm(rankName), ChatFormatting.AQUA))
-							.append(Util.text(".", ChatFormatting.RED)));
+						command.getSource().sendFailure(Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.playernotinrank", Util.text(playerName, ChatFormatting.GREEN), Util.text(Util.norm(rankName), ChatFormatting.AQUA)).withStyle(ChatFormatting.RED)));
 						return 0;
 					}
 
 					Util.togglePlayerRank(playerName, rankName);
-					MessageFunctions.sendMessage(command.getSource(),
-						Util.prefix()
-							.append(Util.text("Removed player ", ChatFormatting.GRAY))
-							.append(Util.text(playerName, ChatFormatting.GREEN))
-							.append(Util.text(" from rank ", ChatFormatting.GRAY))
-							.append(Util.text(Util.norm(rankName), ChatFormatting.AQUA)), true);
+					MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.removedplayerfromrank", Util.text(playerName, ChatFormatting.GREEN), Util.text(Util.norm(rankName), ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY)), true);
 					return 1;
 				}))))
 
@@ -171,21 +128,16 @@ public class CommandBCS {
 				.executes((command) -> {
 					JsonObject players = Util.readJsonObjectSafe(Util.playersPathString());
 					if (players.isEmpty()) {
-						MessageFunctions.sendMessage(command.getSource(),
-							Util.prefix().append(Util.text("No players assigned to ranks.", ChatFormatting.GRAY)), true);
+						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.noplayersassigned").withStyle(ChatFormatting.GRAY)), true);
 						return 1;
 					}
 
-					MutableComponent out = Util.prefix().append(Util.text("Players with ranks:", ChatFormatting.GOLD));
+					MutableComponent out = Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.playerswithranks").withStyle(ChatFormatting.GOLD));
 					for (String player : Util.sortedKeys(players)) {
 						String rank = Util.asString(players.get(player));
 						ChatFormatting cf = rank != null ? Util.parseColor(Util.getRankColor(rank).map(ChatFormatting::getName).orElse(rank)) : null;
 
-						out.append(Component.literal("\n"))
-							.append(Util.text("- ", ChatFormatting.DARK_GRAY))
-							.append(Util.text(player, ChatFormatting.GREEN))
-							.append(Util.text(" -> ", ChatFormatting.GRAY))
-							.append(Util.text(rank == null ? "UNKNOWN" : Util.norm(rank), ChatFormatting.AQUA));
+						out.append(Component.literal("\n")).append(Component.translatable("collective.beautifiedchatserver.message.listitem", Util.text(player, ChatFormatting.GREEN), Util.text(rank == null ? "UNKNOWN" : Util.norm(rank), ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY));
 					}
 					MessageFunctions.sendMessage(command.getSource(), out, true);
 					return 1;
