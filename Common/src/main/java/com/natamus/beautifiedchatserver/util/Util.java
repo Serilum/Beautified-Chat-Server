@@ -5,6 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.natamus.beautifiedchatserver.config.ConfigHandler;
+import com.natamus.collective.functions.ColourFunctions;
 import com.natamus.collective.functions.DataFunctions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -33,10 +34,10 @@ public class Util {
 	//  Colour Helpers
 
 	public static ChatFormatting getColour(String word, String playerName) {
-		ChatFormatting colour = ChatFormatting.getById(ConfigHandler.chatOtherSymbolsColour);
+		ChatFormatting colour = ColourFunctions.getById(ConfigHandler.chatOtherSymbolsColour);
 
 		if (word.equalsIgnoreCase("timestamp")) {
-			colour = ChatFormatting.getById(ConfigHandler.chatTimestampColour);
+			colour = ColourFunctions.getById(ConfigHandler.chatTimestampColour);
 		}
 		else if (word.equalsIgnoreCase("username")) {
 			if (ConfigHandler.useRankColours) {
@@ -50,10 +51,10 @@ public class Util {
 					}
 				}
 			}
-			colour = ChatFormatting.getById(ConfigHandler.chatUsernameColour);
+			colour = ColourFunctions.getById(ConfigHandler.chatUsernameColour);
 		}
 		else if (word.equalsIgnoreCase("chatmessage")) {
-			colour = ChatFormatting.getById(ConfigHandler.chatMessageColour);
+			colour = ColourFunctions.getById(ConfigHandler.chatMessageColour);
 		}
 
 		return colour;
@@ -69,7 +70,7 @@ public class Util {
 		catch (IllegalArgumentException ignored) {}
 
 		for (ChatFormatting cf : ChatFormatting.values()) {
-			if (cf.isColor() && cf.getName().equalsIgnoreCase(s)) {
+			if (cf.ordinal() < 16 && cf.name().toLowerCase(Locale.ROOT).equalsIgnoreCase(s)) {
 				return cf;
 			}
 		}
@@ -78,8 +79,8 @@ public class Util {
 
 	public static CompletableFuture<Suggestions> suggestsColors(CommandContext<CommandSourceStack> ctx, SuggestionsBuilder builder) {
 		for (ChatFormatting cf : ChatFormatting.values()) {
-			if (cf.isColor()) {
-				builder.suggest(cf.getName());
+			if (cf.ordinal() < 16) {
+				builder.suggest(cf.name().toLowerCase(Locale.ROOT));
 			}
 		}
 		return builder.buildFuture();
@@ -93,7 +94,7 @@ public class Util {
 
 		String r = norm(rankName);
 		JsonObject ranks = readJsonObject(RANKS_FILE);
-		String newColor = color.getName().toUpperCase(Locale.ROOT);
+		String newColor = color.name().toLowerCase(Locale.ROOT).toUpperCase(Locale.ROOT);
 
 		if (ranks.has(r) && newColor.equals(asString(ranks.get(r)))) {
 			return false;
@@ -137,7 +138,7 @@ public class Util {
 		}
 		catch (IllegalArgumentException ex) {
 			for (ChatFormatting cf : ChatFormatting.values()) {
-				if (cf.getName().equalsIgnoreCase(colorName)) {
+				if (cf.name().toLowerCase(Locale.ROOT).equalsIgnoreCase(colorName)) {
 					return Optional.of(cf);
 				}
 			}

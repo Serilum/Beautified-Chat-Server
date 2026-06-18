@@ -9,11 +9,12 @@ import com.natamus.collective.functions.MessageFunctions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.server.permissions.Permissions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.permissions.Permissions;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public class CommandBCS {
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -36,10 +37,10 @@ public class CommandBCS {
 
 					boolean changed = Util.addOrUpdateRank(rankName, color);
 					if (changed) {
-						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.ranksetcolor", Util.text(Util.norm(rankName), ChatFormatting.AQUA), Util.text(color.getName(), color)).withStyle(ChatFormatting.GRAY)), true);
+						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.ranksetcolor", Util.text(Util.norm(rankName), ChatFormatting.AQUA), Util.text(color.name().toLowerCase(Locale.ROOT), color)).withStyle(ChatFormatting.GRAY)), true);
 					}
 					else {
-						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.rankalreadycolor", Util.text(Util.norm(rankName), ChatFormatting.AQUA), Util.text(color.getName(), color)).withStyle(ChatFormatting.GRAY)), true);
+						MessageFunctions.sendMessage(command.getSource(), Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.rankalreadycolor", Util.text(Util.norm(rankName), ChatFormatting.AQUA), Util.text(color.name().toLowerCase(Locale.ROOT), color)).withStyle(ChatFormatting.GRAY)), true);
 					}
 					return 1;
 				}))))
@@ -135,7 +136,7 @@ public class CommandBCS {
 					MutableComponent out = Util.prefix().append(Component.translatable("collective.beautifiedchatserver.message.playerswithranks").withStyle(ChatFormatting.GOLD));
 					for (String player : Util.sortedKeys(players)) {
 						String rank = Util.asString(players.get(player));
-						ChatFormatting cf = rank != null ? Util.parseColor(Util.getRankColor(rank).map(ChatFormatting::getName).orElse(rank)) : null;
+						ChatFormatting cf = rank != null ? Util.parseColor(Util.getRankColor(rank).map(c -> c.name().toLowerCase(Locale.ROOT)).orElse(rank)) : null;
 
 						out.append(Component.literal("\n")).append(Component.translatable("collective.beautifiedchatserver.message.listitem", Util.text(player, ChatFormatting.GREEN), Util.text(rank == null ? "UNKNOWN" : Util.norm(rank), ChatFormatting.AQUA)).withStyle(ChatFormatting.GRAY));
 					}
