@@ -1,10 +1,10 @@
-package com.natamus.beautifiedchatserver.cmd;
+package com.serilum.beautifiedchatserver.cmd;
 
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.natamus.beautifiedchatserver.util.Reference;
-import com.natamus.beautifiedchatserver.util.Util;
+import com.serilum.beautifiedchatserver.util.Reference;
+import com.serilum.beautifiedchatserver.util.Util;
 import com.natamus.collective.functions.MessageFunctions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;

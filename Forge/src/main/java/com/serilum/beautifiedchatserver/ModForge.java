@@ -1,9 +1,9 @@
-package com.natamus.beautifiedchatserver;
+package com.serilum.beautifiedchatserver;
 
-import com.natamus.beautifiedchatserver.forge.config.IntegrateForgeConfig;
-import com.natamus.beautifiedchatserver.forge.events.ForgeBeautifulChatEvent;
-import com.natamus.beautifiedchatserver.forge.events.ForgeRegisterCommandsEvent;
-import com.natamus.beautifiedchatserver.util.Reference;
+import com.serilum.beautifiedchatserver.forge.config.IntegrateForgeConfig;
+import com.serilum.beautifiedchatserver.forge.events.ForgeBeautifulChatEvent;
+import com.serilum.beautifiedchatserver.forge.events.ForgeRegisterCommandsEvent;
+import com.serilum.beautifiedchatserver.util.Reference;
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,7 +35,7 @@ public class ModForge {
 	private void loadComplete(final FMLLoadCompleteEvent event) {
 		MinecraftForge.EVENT_BUS.register(ForgeRegisterCommandsEvent.class);
 
-    	MinecraftForge.EVENT_BUS.register(ForgeBeautifulChatEvent.class);
+		MinecraftForge.EVENT_BUS.register(ForgeBeautifulChatEvent.class);
 	}
 
 	private static void setGlobalConstants() {

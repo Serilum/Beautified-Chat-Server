@@ -1,7 +1,7 @@
-package com.natamus.beautifiedchatserver.forge.events;
+package com.serilum.beautifiedchatserver.forge.events;
 
 import com.mojang.datafixers.util.Pair;
-import com.natamus.beautifiedchatserver.events.BeautifulChatEvent;
+import com.serilum.beautifiedchatserver.events.BeautifulChatEvent;
 import com.natamus.collective.functions.MessageFunctions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;

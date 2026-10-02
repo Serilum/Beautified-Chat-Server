@@ -1,9 +1,9 @@
-package com.natamus.beautifiedchatserver.events;
+package com.serilum.beautifiedchatserver.events;
 
 import com.mojang.datafixers.util.Pair;
-import com.natamus.beautifiedchatserver.config.ConfigHandler;
-import com.natamus.beautifiedchatserver.data.Chat;
-import com.natamus.beautifiedchatserver.util.Util;
+import com.serilum.beautifiedchatserver.config.ConfigHandler;
+import com.serilum.beautifiedchatserver.data.Chat;
+import com.serilum.beautifiedchatserver.util.Util;
 import com.natamus.collective.functions.StringFunctions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

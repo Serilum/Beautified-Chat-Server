@@ -1,8 +1,8 @@
-package com.natamus.beautifiedchatserver;
+package com.serilum.beautifiedchatserver;
 
-import com.natamus.beautifiedchatserver.cmd.CommandBCS;
-import com.natamus.beautifiedchatserver.events.BeautifulChatEvent;
-import com.natamus.beautifiedchatserver.util.Reference;
+import com.serilum.beautifiedchatserver.cmd.CommandBCS;
+import com.serilum.beautifiedchatserver.events.BeautifulChatEvent;
+import com.serilum.beautifiedchatserver.util.Reference;
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.collective.fabric.callbacks.CollectiveChatEvents;

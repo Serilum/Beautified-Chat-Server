@@ -1,6 +1,6 @@
-package com.natamus.beautifiedchatserver.forge.events;
+package com.serilum.beautifiedchatserver.forge.events;
 
-import com.natamus.beautifiedchatserver.cmd.CommandBCS;
+import com.serilum.beautifiedchatserver.cmd.CommandBCS;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
