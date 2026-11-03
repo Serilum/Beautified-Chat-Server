@@ -1,7 +1,6 @@
 package com.serilum.beautifiedchatserver;
 
 import com.serilum.beautifiedchatserver.neoforge.config.IntegrateNeoForgeConfig;
-import com.serilum.beautifiedchatserver.neoforge.events.NeoForgeBeautifulChatEvent;
 import com.serilum.beautifiedchatserver.neoforge.events.NeoForgeRegisterCommandsEvent;
 import com.serilum.beautifiedchatserver.util.Reference;
 import com.natamus.collective.check.RegisterMod;
@@ -32,8 +31,6 @@ public class ModNeoForge {
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
 		NeoForge.EVENT_BUS.register(NeoForgeRegisterCommandsEvent.class);
-
-		NeoForge.EVENT_BUS.register(NeoForgeBeautifulChatEvent.class);
 	}
 
 	private static void setGlobalConstants() {
