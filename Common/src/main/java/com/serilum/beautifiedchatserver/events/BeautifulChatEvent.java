@@ -1,65 +1,47 @@
 package com.serilum.beautifiedchatserver.events;
 
-import com.mojang.datafixers.util.Pair;
+import com.natamus.collective.functions.MessageFunctions;
 import com.serilum.beautifiedchatserver.config.ConfigHandler;
-import com.serilum.beautifiedchatserver.data.Chat;
 import com.serilum.beautifiedchatserver.util.Util;
-import com.natamus.collective.functions.StringFunctions;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.OutgoingChatMessage;
+import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.server.level.ServerPlayer;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import net.minecraft.world.entity.player.ChatVisiblity;
 
 public class BeautifulChatEvent {
-	public static Pair<Boolean, Component> onServerChat(ServerPlayer serverPlayer, Component messageComponent, UUID uuid) {
-		String timestamp = new SimpleDateFormat(ConfigHandler.timestampFormat).format(new Date());
-
-		String playerName = serverPlayer.getName().getString();
-		String message = messageComponent.getString();
-		if (!message.contains(playerName)) {
-			return null;
+	public static boolean onChatMessageSend(ServerPlayer receiver, OutgoingChatMessage outgoingChatMessage, boolean filtered, ChatType.Bound chatType) {
+		if (filtered || !Util.isPlayerChat(receiver, chatType)) {
+			return false;
 		}
 
-		if (message.contains("> ")) {
-			message = message.substring(message.split("> ")[0].length() + 2);
+		if (!(outgoingChatMessage instanceof OutgoingChatMessage.Player outgoingPlayerMessage)) {
+			return false;
 		}
 
-		MutableComponent output = Component.literal("");
-		String raw_outputstring = ConfigHandler.chatMessageFormat;
-		for (String word : raw_outputstring.split("%")) {
-			ChatFormatting colour = Util.getColour(word, playerName);
-			String toAppendString = word;
-
-			if (word.equalsIgnoreCase("timestamp")) {
-				toAppendString = timestamp;
-			}
-			else if (word.equalsIgnoreCase("username")) {
-				toAppendString = playerName;
-
-				if (ConfigHandler.showRankTitles) {
-					Optional<String> optionalPlayerRank = Util.getRankOfPlayer(playerName);
-					if (optionalPlayerRank.isPresent()) {
-						String rankFormat = ConfigHandler.rankTitleFormat;
-
-						toAppendString = rankFormat.replace("%rank", StringFunctions.capitalizeEveryWord(optionalPlayerRank.get())) + toAppendString;
-					}
-				}
-			}
-			else if (word.equalsIgnoreCase("chatmessage")) {
-				toAppendString = message;
-			}
-
-			MutableComponent wordcomponent = Component.literal(toAppendString);
-			wordcomponent.withStyle(colour);
-			output.append(wordcomponent);
+		if (receiver.getChatVisibility() != ChatVisiblity.FULL) {
+			return false;
 		}
 
-		Chat.logger.info(output.getString());
-		return new Pair<Boolean, Component>(true, output);
+		PlayerChatMessage playerChatMessage = outgoingPlayerMessage.message();
+		ServerPlayer sender = receiver.level().getServer().getPlayerList().getPlayer(playerChatMessage.sender());
+		if (sender == null) {
+			return false;
+		}
+
+		boolean keepOwnColours = !ConfigHandler.overwriteOtherModColours;
+		MutableComponent chatMessage = Util.getColouredComponent(playerChatMessage.decoratedContent(), Util.getColour("chatmessage"), keepOwnColours);
+
+		boolean isOwnMessage = receiver.getUUID().equals(sender.getUUID());
+		MutableComponent formattedMessage = Util.getFormattedChatMessage(sender, chatMessage, Util.getTimestamp(), isOwnMessage);
+
+		if (ConfigHandler.sendAsPlayerChat) {
+			Util.sendAsPlayerChat(receiver, sender, playerChatMessage, formattedMessage);
+		}
+		else {
+			MessageFunctions.sendMessage(receiver, formattedMessage);
+		}
+		return true;
 	}
 }

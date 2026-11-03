@@ -1,7 +1,6 @@
 package com.serilum.beautifiedchatserver;
 
 import com.serilum.beautifiedchatserver.forge.config.IntegrateForgeConfig;
-import com.serilum.beautifiedchatserver.forge.events.ForgeBeautifulChatEvent;
 import com.serilum.beautifiedchatserver.forge.events.ForgeRegisterCommandsEvent;
 import com.serilum.beautifiedchatserver.util.Reference;
 import com.natamus.collective.check.RegisterMod;
@@ -34,8 +33,6 @@ public class ModForge {
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
 		MinecraftForge.EVENT_BUS.register(ForgeRegisterCommandsEvent.class);
-
-		MinecraftForge.EVENT_BUS.register(ForgeBeautifulChatEvent.class);
 	}
 
 	private static void setGlobalConstants() {
