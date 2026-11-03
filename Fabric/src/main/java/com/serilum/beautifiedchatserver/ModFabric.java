@@ -1,20 +1,14 @@
 package com.serilum.beautifiedchatserver;
 
 import com.serilum.beautifiedchatserver.cmd.CommandBCS;
-import com.serilum.beautifiedchatserver.events.BeautifulChatEvent;
 import com.serilum.beautifiedchatserver.util.Reference;
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
-import com.natamus.collective.fabric.callbacks.CollectiveChatEvents;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-
-import java.util.UUID;
 
 public class ModFabric implements ModInitializer {
-	
+
 	@Override
 	public void onInitialize() {
 		if (!ShouldLoadCheck.shouldLoad(Reference.MOD_ID)) {
@@ -30,10 +24,6 @@ public class ModFabric implements ModInitializer {
 	}
 
 	private void loadEvents() {
-		CollectiveChatEvents.SERVER_CHAT_RECEIVED.register((ServerPlayer serverPlayer, Component message, UUID uuid) -> {
-			return BeautifulChatEvent.onServerChat(serverPlayer, message, uuid);
-		});
-
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			CommandBCS.register(dispatcher);
 		});

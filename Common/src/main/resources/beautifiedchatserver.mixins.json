@@ -4,7 +4,8 @@
   "package": "com.serilum.beautifiedchatserver.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-
+    "CommandSourceStackMixin",
+    "ServerPlayerMixin"
   ],
   "client": [
   
